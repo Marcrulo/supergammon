@@ -1,5 +1,5 @@
 save_path=./saved_models/exp1
-command_line_args=Namespace(episodes=1, func=<function args_train at 0x7ffb47ca59d8>, hidden_units=40, init_weights=False, lamda=0.7, lr=0.1, model=None, name='exp1', save_path='./saved_models/exp1', save_step=0, seed=123, type='nn')
+command_line_args=Namespace(episodes=1, func=<function args_train at 0x7fae6118fa60>, hidden_units=40, init_weights=False, lamda=0.7, lr=0.1, model=None, name='exp1', save_path='./saved_models/exp1', save_step=0, seed=123, type='nn')
 type=nn
 hidden_units=40
 init_weights=False
