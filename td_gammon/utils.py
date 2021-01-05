@@ -72,25 +72,6 @@ def args_train(args):
     net.train_agent(env=env, n_episodes=n_episodes, save_path=save_path, save_step=save_step, eligibility=eligibility, name_experiment=name)
 
 
-# ==================================== WEB GUI PARAMETERS ====================================
-def args_gui(args):
-    if path_exists(args.model):
-        # assert os.path.exists(args.model), print("The path {} doesn't exists".format(args.model))
-
-        if args.type == 'nn':
-            net = TDGammon(hidden_units=args.hidden_units, lr=0.1, lamda=None, init_weights=False)
-            env = gym.make('gym_backgammon:backgammon-v0')
-        else:
-            net = TDGammonCNN(lr=0.0001)
-            env = gym.make('gym_backgammon:backgammon-pixel-v0')
-
-        net.load(checkpoint_path=args.model, optimizer=None, eligibility_traces=False)
-
-        agents = {BLACK: TDAgent(BLACK, net=net), WHITE: HumanAgent(WHITE)}
-        gui = GUI(env=env, host=args.host, port=args.port, agents=agents)
-        gui.run()
-
-
 # =================================== EVALUATE PARAMETERS ====================================
 def args_evaluate(args):
     model_agent0 = args.model_agent0
