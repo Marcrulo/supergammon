@@ -121,30 +121,6 @@ def args_evaluate(args):
         evaluate_agents(agents, env, n_episodes)
 
 
-# ===================================== GNUBG PARAMETERS =====================================
-def args_gnubg(args):
-    model_agent0 = args.model_agent0
-    model_type = args.type
-    hidden_units_agent0 = args.hidden_units_agent0
-    n_episodes = args.episodes
-    host = args.host
-    port = args.port
-    difficulty = args.difficulty
-
-    if path_exists(model_agent0):
-        # assert os.path.exists(model_agent0), print("The path {} doesn't exists".format(model_agent0))
-        if model_type == 'nn':
-            net0 = TDGammon(hidden_units=hidden_units_agent0, lr=0.1, lamda=None, init_weights=False)
-        else:
-            net0 = TDGammonCNN(lr=0.0001)
-
-        net0.load(checkpoint_path=model_agent0, optimizer=None, eligibility_traces=False)
-
-        gnubg_interface = GnubgInterface(host=host, port=port)
-        gnubg_env = GnubgEnv(gnubg_interface, difficulty=difficulty, model_type=model_type)
-        evaluate_vs_gnubg(agent=TDAgentGNU(WHITE, net=net0, gnubg_interface=gnubg_interface), env=gnubg_env, n_episodes=n_episodes)
-
-
 # ===================================== PLOT PARAMETERS ======================================
 def args_plot(args, parser):
     '''

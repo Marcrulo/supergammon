@@ -33,24 +33,6 @@ if __name__ == '__main__':
     parser_evaluate.add_argument('--hidden_units_agent1', help='Hidden Units of the model used by the agent1 (BLACK)', required=False, type=int, default=40)
     parser_evaluate.add_argument('--episodes', help='Number of episodes/games', default=20, required=False, type=int)
 
-    subparsers_gnubg = parser_evaluate.add_subparsers(help='Parameters for gnubg interface')
-    parser_gnubg = subparsers_gnubg.add_parser('vs_gnubg', help='Evaluate agent0 against gnubg', formatter_class=lambda prog: formatter(prog))
-    parser_gnubg.add_argument('--host', help='Host running gnubg', type=str, required=True)
-    parser_gnubg.add_argument('--port', help='Port listening for gnubg commands', type=int, required=True)
-    parser_gnubg.add_argument('--difficulty', help='Difficulty level', choices=['beginner', 'intermediate', 'advanced', 'world_class'], type=str, required=False, default='beginner')
-
-    parser_gnubg.set_defaults(func=utils.args_gnubg)
-    parser_evaluate.set_defaults(func=utils.args_evaluate)
-
-    parser_gui = subparsers.add_parser('gui', help='Start Web GUI', formatter_class=lambda prog: formatter(prog))
-    parser_gui.add_argument('--host', help='Host running the web gui', default='localhost')
-    parser_gui.add_argument('--port', help='Port listening for command', default=8002, type=int)
-    parser_gui.add_argument('--model', help='Model used by the AI opponent', required=True, type=str)
-    parser_gui.add_argument('--hidden_units', help='Hidden units of the model loaded', required=False, type=int, default=40)
-    parser_gui.add_argument('--type', help='Model type', choices=['cnn', 'nn'], type=str, default='nn')
-
-    parser_gui.set_defaults(func=utils.args_gui)
-
     parser_plot = subparsers.add_parser('plot', help='Plot the performance (wins)', formatter_class=lambda prog: formatter(prog))
     parser_plot.add_argument('--save_path', help='Directory where the model are saved', type=str, required=True)
     parser_plot.add_argument('--hidden_units', help='Hidden units of the model(s) loaded', type=int, default=40)
