@@ -26,15 +26,6 @@ class BaseModel(nn.Module):
         torch.manual_seed(seed)
         random.seed(seed)
 
-    def update_weights(self, p, p_next):
-        raise NotImplementedError
-
-    def forward(self, x):
-        raise NotImplementedError
-
-    def init_weights(self):
-        raise NotImplementedError
-
     def init_eligibility_traces(self):
         self.eligibility_traces = [torch.zeros(weights.shape, requires_grad=False) for weights in list(self.parameters())]
 

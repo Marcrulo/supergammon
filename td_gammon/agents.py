@@ -83,3 +83,43 @@ class TDAgent(Agent):
 
         return best_action
 
+
+def evaluate_agents(agents, env, n_episodes):
+    wins = {WHITE: 0, BLACK: 0}
+
+    for episode in range(n_episodes):
+
+        agent_color, first_roll, observation = env.reset()
+        agent = agents[agent_color]
+
+        t = time.time()
+
+        for i in count():
+
+            if first_roll:
+                roll = first_roll
+                first_roll = None
+            else:
+                roll = agent.roll_dice()
+
+            actions = env.get_valid_actions(roll)
+            action = agent.choose_best_action(actions, env)
+            observation_next, reward, done, winner = env.step(action)
+
+            if done:
+                if winner is not None:
+                    wins[agent.color] += 1
+                tot = wins[WHITE] + wins[BLACK]
+                tot = tot if tot > 0 else 1
+
+                print("EVAL => Game={:<6d} | Winner={} | after {:<4} plays || Wins: {}={:<6}({:<5.1f}%) | {}={:<6}({:<5.1f}%) | Duration={:<.3f} sec".format(episode + 1, winner, i,
+                    agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100,
+                    agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t))
+                break
+
+            agent_color = env.get_opponent_agent()
+            agent = agents[agent_color]
+
+            observation = observation_next
+    return wins
+
