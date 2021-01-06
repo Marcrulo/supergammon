@@ -2,8 +2,8 @@
 # IT USES PYTHON 2.7
 
 import gnubg
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-# from http.server import BaseHTTPRequestHandler, HTTPServer
+#from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
 try:
@@ -78,5 +78,5 @@ def run(host, server_class=HTTPServer, handler_class=Handler, port=8001):
 
 if __name__ == "__main__":
     HOST = 'localhost'  # <-- YOUR HOST HERE
-    PORT = 8001  # <-- YOUR PORT HERE
+    PORT = 8005  # <-- YOUR PORT HERE
     run(host=HOST, port=PORT)
