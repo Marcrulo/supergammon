@@ -1,9 +1,9 @@
 import os
 import gym
 import sys
-from agents import TDAgent, HumanAgent, TDAgentGNU, RandomAgent, evaluate_agents
+from agents import TDAgent, HumanAgent, RandomAgent, evaluate_agents
 from gym_backgammon.envs.backgammon import WHITE, BLACK
-from model import TDGammon, TDGammonCNN
+from model import TDGammon
 from torch.utils.tensorboard import SummaryWriter
 
 #  tensorboard --logdir=runs/ --host localhost --port 8001

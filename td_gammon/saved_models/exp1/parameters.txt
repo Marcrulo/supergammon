@@ -1,11 +1,11 @@
 save_path=./saved_models/exp1
-command_line_args=Namespace(episodes=10, func=<function args_train at 0x7fe09b4879d8>, hidden_units=40, init_weights=False, lamda=0.7, lr=0.1, model=None, name='exp1', save_path='./saved_models/exp1', save_step=0, seed=123, type='nn')
+command_line_args=Namespace(episodes=15, func=<function args_train at 0x7f78535be620>, hidden_units=40, init_weights=False, lamda=0.7, lr=0.1, model=None, name='exp1', save_path='./saved_models/exp1', save_step=0, seed=123, type='nn')
 type=nn
 hidden_units=40
 init_weights=False
 alpha=0.1
 lamda=0.7
-n_episodes=10
+n_episodes=15
 save_step=0
 start_episode=0
 name_experiment=exp1

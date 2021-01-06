@@ -1472,7 +1472,7 @@ class Backgammon:
         - for each player => 96 * 2 = 192
         - 2 units indicating who is the current player
         - 2 units for white and black bar checkers
-        - 2 units for white and block off checkers
+        - 2 units for white and black off checkers
         - tot = 192 + 2 + 2 + 2 = 198
         """
         features_vector = []

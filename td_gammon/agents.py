@@ -69,6 +69,7 @@ class TDAgent(Agent):
             # Iterate over all the legal moves and pick the best action
             for i, action in enumerate(actions):
                 observation, reward, done, info = env.step(action)
+
                 values[i] = self.net(observation)
 
                 # restore the board and other variables (undo the action)
