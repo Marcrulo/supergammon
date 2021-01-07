@@ -38,6 +38,7 @@ class BaseModel(nn.Module):
     def init_eligibility_traces(self):
         self.eligibility_traces = [torch.zeros(weights.shape, requires_grad=False) for weights in list(self.parameters())]
 
+
     def checkpoint(self, checkpoint_path, step, name_experiment):
         path = checkpoint_path + "/{}_{}_{}.tar".format(name_experiment, datetime.datetime.now().strftime('%Y%m%d_%H%M_%S_%f'), step + 1)
         torch.save({'step': step + 1, 'model_state_dict': self.state_dict(), 'eligibility': self.eligibility_traces if self.eligibility_traces else []}, path)
