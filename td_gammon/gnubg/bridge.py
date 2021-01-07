@@ -1,3 +1,6 @@
+# -- coding: utf-8 --
+
+
 # THIS FILE SHOULD BE RUN ON THE SAME MACHINE WHERE gnubg IS INSTALLED.
 # IT USES PYTHON 2.7
 
@@ -58,7 +61,7 @@ class Handler(BaseHTTPRequestHandler):
                 )
 
         self._set_headers()
-        self.wfile.write(json.dumps(response))
+        self.wfile.write(json.dumps(response).encode())
 
     def do_GET(self):
         parsed = urlparse(self.path)
@@ -66,7 +69,7 @@ class Handler(BaseHTTPRequestHandler):
 
         if self.path:
             self._set_headers()
-            self.wfile.write(bytes("Hello! Welcome to Backgammon WebGUI"))
+            self.wfile.write(bytes("Hello! Welcome to Backgammon WebGUI".encode()))
 
 
 def run(host, server_class=HTTPServer, handler_class=Handler, port=8001):
