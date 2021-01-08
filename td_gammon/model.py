@@ -229,7 +229,7 @@ class TDGammon(BaseModel):
                     nn.Linear(hidden_units, hidden_units),
                     nn.Sigmoid()
                 )
-            else:
+            if self.hl > 3:
                 print("ERROR: Cannot apply more hidden layers than 3")
                 exit()
             
@@ -250,7 +250,7 @@ class TDGammon(BaseModel):
                     nn.Linear(hidden_units, hidden_units),
                     nn.ReLU()
                 )
-            else:
+            if self.hl > 3:
                 print("ERROR: Cannot apply more hidden layers than 3")
                 exit()
 
