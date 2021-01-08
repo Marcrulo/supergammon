@@ -41,12 +41,16 @@ def args_train(args):
     name = args.name
     model_type = args.type
     seed = args.seed
+    gamma = args.gamma                  # NEW FEATURE
+    hidden_layers = args.hidden_layers  # NEW FEATURE
+    activation = args.activation        # NEW FEATURE
+    
 
     eligibility = False
     optimizer = None
 
     if model_type == 'nn':
-        net = TDGammon(hidden_units=hidden_units, lr=lr, lamda=lamda, init_weights=init_weights, seed=seed)
+        net = TDGammon(hidden_units=hidden_units, lr=lr, lamda=lamda, gamma=gamma, hl=hidden_layers, activation=activation, init_weights=init_weights, seed=seed) # NEW FEATURE
         eligibility = True
         env = gym.make('gym_backgammon:backgammon-v0')
 
