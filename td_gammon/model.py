@@ -229,10 +229,12 @@ class TDGammon(BaseModel):
                     nn.Linear(hidden_units, hidden_units),
                     nn.Sigmoid()
                 )
+            else:
+                print("ERROR: Cannot apply more hidden layers than 3")
+                exit()
             
         # NEW FEATURE
-        # elif self.activation == n ...
-        else: 
+        elif self.activation == 2: 
             self.hidden = nn.Sequential(
                 nn.Linear(input_units, hidden_units),
                 nn.ReLU()
@@ -248,6 +250,13 @@ class TDGammon(BaseModel):
                     nn.Linear(hidden_units, hidden_units),
                     nn.ReLU()
                 )
+            else:
+                print("ERROR: Cannot apply more hidden layers than 3")
+                exit()
+
+        else:
+            print("ERROR: Only up to 2 activation functions available")
+            exit()
 
         self.output = nn.Sequential(
             nn.Linear(hidden_units, output_units),
@@ -270,7 +279,7 @@ class TDGammon(BaseModel):
             x = self.hidden2(x)
         if self.hl == 3:
             x = self.hidden3(x)
-            
+
         x = self.output(x)
 
         return x
