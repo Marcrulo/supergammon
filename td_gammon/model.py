@@ -6,6 +6,7 @@ from itertools import count
 import numpy as np
 import torch
 import torch.nn as nn
+import csv
 
 from agents import TDAgent, RandomAgent, evaluate_agents
 from gym_backgammon.envs.backgammon import WHITE, BLACK
@@ -38,7 +39,6 @@ class BaseModel(nn.Module):
     def init_eligibility_traces(self):
         self.eligibility_traces = [torch.zeros(weights.shape, requires_grad=False) for weights in list(self.parameters())]
 
-
     def checkpoint(self, checkpoint_path, step, name_experiment):
         path = checkpoint_path + "/{}_{}_{}.tar".format(name_experiment, datetime.datetime.now().strftime('%Y%m%d_%H%M_%S_%f'), step + 1)
         torch.save({'step': step + 1, 'model_state_dict': self.state_dict(), 'eligibility': self.eligibility_traces if self.eligibility_traces else []}, path)
@@ -68,6 +68,9 @@ class BaseModel(nn.Module):
         durations = []
         steps = 0
         start_training = time.time()
+        
+        
+        stats = []
 
         for episode in range(start_episode, n_episodes):
 
@@ -101,11 +104,25 @@ class BaseModel(nn.Module):
 
                     tot = sum(wins.values())
                     tot = tot if tot > 0 else 1
+                    
+                    # Game: episode + 1
+                    # Winner: winner
+                    # Number of rounds: i
+                    # White agent: agents[WHITE].name
+                    # White number of victories: wins[WHITE]
+                    # White percentage of victory: (wins[WHITE] / tot) * 100
+                    # Black agent: agents[BLACK].name
+                    # Black number of victories: wins[BLACK]
+                    # Black percentage of victory: (wins[BLACK] / tot) * 100
+                    # Duration: time.time() - t
 
                     print("Game={:<6d} | Winner={} | after {:<4} plays || Wins: {}={:<6}({:<5.1f}%) | {}={:<6}({:<5.1f}%) | Duration={:<.3f} sec".format(episode + 1, winner, i,
                         agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100,
                         agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t))
-
+                    
+                    info = [episode + 1, winner, i, agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100, agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t]
+                    stats.append(info)
+                    
                     durations.append(time.time() - t)
                     steps += i
                     break
@@ -116,6 +133,12 @@ class BaseModel(nn.Module):
                 agent = agents[agent_color]
 
                 observation = observation_next
+
+
+            with open('stats.csv', 'w') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(stats)
+
 
             if save_path and save_step > 0 and episode > 0 and (episode + 1) % save_step == 0:
                 self.checkpoint(checkpoint_path=save_path, step=episode, name_experiment=name_experiment)
