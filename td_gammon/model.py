@@ -205,23 +205,58 @@ class TDGammonCNN(BaseModel):
 
 
 class TDGammon(BaseModel):
-    def __init__(self, hidden_units, lr, lamda, init_weights, seed=123, input_units=198, output_units=1):
+    def __init__(self, hidden_units, lr, lamda, gamma, hl, activation, init_weights, seed=123, input_units=198, output_units=1): # NEW FEATURE
         super(TDGammon, self).__init__(lr, lamda, seed=seed)
 
-        self.hidden = nn.Sequential(
-            nn.Linear(input_units, hidden_units),
-            nn.Sigmoid()
-        )
+        self.gamma = gamma              # NEW FEATURE
+        self.hl = hl                    # NEW FEATURE
+        self.activation = activation    # NEW FEATURE
 
-        # self.hidden2 = nn.Sequential(
-        #     nn.Linear(hidden_units, hidden_units),
-        #     nn.Sigmoid()
-        # )
+        # NEW FEATURE
+        if self.activation == 1:
+            self.hidden = nn.Sequential(
+                nn.Linear(input_units, hidden_units),
+                nn.Sigmoid()
+            )
+            if self.hl >= 2:
+                self.hidden2 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            
+            if self.hl == 3: 
+                self.hidden3 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl > 3:
+                print("ERROR: Cannot apply more hidden layers than 3")
+                exit()
+            
+        # NEW FEATURE
+        elif self.activation == 2: 
+            self.hidden = nn.Sequential(
+                nn.Linear(input_units, hidden_units),
+                nn.ReLU()
+            )
+            if self.hl >= 2:
+                self.hidden2 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.ReLU()
+                )
+            
+            if self.hl == 3: 
+                self.hidden3 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.ReLU()
+                )
+            if self.hl > 3:
+                print("ERROR: Cannot apply more hidden layers than 3")
+                exit()
 
-        # self.hidden3 = nn.Sequential(
-        #     nn.Linear(hidden_units, hidden_units),
-        #     nn.Sigmoid()
-        # )
+        else:
+            print("ERROR: Only up to 2 activation functions available")
+            exit()
 
         self.output = nn.Sequential(
             nn.Linear(hidden_units, output_units),
@@ -238,9 +273,15 @@ class TDGammon(BaseModel):
     def forward(self, x):
         x = torch.from_numpy(np.array(x))
         x = self.hidden(x)
-        # x = self.hidden2(x)
-        # x = self.hidden3(x)
+
+        # NEW FEATURE
+        if self.hl >= 2:
+            x = self.hidden2(x)
+        if self.hl == 3:
+            x = self.hidden3(x)
+
         x = self.output(x)
+
         return x
 
     def update_weights(self, p, p_next):
@@ -260,7 +301,7 @@ class TDGammon(BaseModel):
             for i, weights in enumerate(parameters):
 
                 # z <- gamma * lambda * z + (grad w w.r.t P_t)
-                self.eligibility_traces[i] = self.lamda * self.eligibility_traces[i] + weights.grad
+                self.eligibility_traces[i] = self.gamma * self.lamda * self.eligibility_traces[i] + weights.grad # NEW FEATURE
 
                 # w <- w + alpha * td_error * z
                 new_weights = weights + self.lr * td_error * self.eligibility_traces[i]
