@@ -83,6 +83,7 @@ class BaseModel(nn.Module):
             t = time.time()
 
             for i in count():
+                total_loss = 0
                 if first_roll:
                     roll = first_roll
                     first_roll = None
@@ -99,6 +100,7 @@ class BaseModel(nn.Module):
                 if done:
                     if winner is not None:
                         loss = self.update_weights(p, reward)
+                        total_loss += abs(loss.item())
 
                         wins[agent.color] += 1
 
@@ -115,12 +117,13 @@ class BaseModel(nn.Module):
                     # Black number of victories: wins[BLACK]
                     # Black percentage of victory: (wins[BLACK] / tot) * 100
                     # Duration: time.time() - t
+                    # Average error
 
-                    print("Game={:<6d} | Winner={} | after {:<4} plays || Wins: {}={:<6}({:<5.1f}%) | {}={:<6}({:<5.1f}%) | Duration={:<.3f} sec".format(episode + 1, winner, i,
+                    print("Game={:<6d} | Winner={} | after {:<4} plays || Wins: {}={:<6}({:<5.1f}%) | {}={:<6}({:<5.1f}%) | Duration={:<.3f} sec, Average TD-error: {}".format(episode + 1, winner, i,
                         agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100,
-                        agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t))
+                        agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t, total_loss / i))
                     
-                    info = [episode + 1, winner, i, agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100, agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t]
+                    info = [episode + 1, winner, i, agents[WHITE].name, wins[WHITE], (wins[WHITE] / tot) * 100, agents[BLACK].name, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t, total_loss/i]
                     stats.append(info)
                     
                     durations.append(time.time() - t)
@@ -128,6 +131,7 @@ class BaseModel(nn.Module):
                     break
                 else:
                     loss = self.update_weights(p, p_next)
+                    total_loss += abs(loss.item())
 
                 agent_color = env.get_opponent_agent()
                 agent = agents[agent_color]

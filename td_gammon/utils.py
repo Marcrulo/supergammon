@@ -8,6 +8,7 @@ from gym_backgammon.envs.backgammon import WHITE, BLACK
 from model import TDGammon, TDGammonCNN
 from web_gui.gui import GUI
 from torch.utils.tensorboard import SummaryWriter
+import matplotlib.pyplot as plt
 
 #  tensorboard --logdir=runs/ --host localhost --port 8001
 
@@ -210,15 +211,27 @@ def args_stats(args, parser):
         if filename.endswith("{}.csv".format(str(max_it_sizes))):
             final_file = filename
 
-    
+    avg_td = []
+    win_rates = []
     with open(folder+'/'+final_file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
-        #properties = []
         for row in reader:
-            #properties.append(row)
-            print(row)
 
+            if is_print:
+                print(row)
 
+            if is_plot:
+                avg_td.append(float(row[10]))
+                win_rates.append(float(row[5]))
+
+    f = plt.figure(figsize=(10,4))
+    ax1 = f.add_subplot(121)
+    ax2 = f.add_subplot(122)
+    ax1.plot(avg_td)
+    ax2.plot(win_rates)
+    ax1.title.set_text("Average TD-error \nfor each episode")
+    ax2.title.set_text("Winrate (\"loss\")")
+    plt.show()
 
 # ===================================== PLOT PARAMETERS ======================================
 def args_plot(args, parser):
