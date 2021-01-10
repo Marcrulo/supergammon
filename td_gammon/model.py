@@ -135,7 +135,7 @@ class BaseModel(nn.Module):
                 observation = observation_next
 
 
-            with open('stats.csv', 'w') as csvfile:
+            with open(save_path+'/stats_{}.csv'.format(n_episodes), 'w') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(stats)
 

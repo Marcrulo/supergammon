@@ -184,41 +184,39 @@ def args_stats(args, parser):
     exp = args.exp
     iterations = args.iterations
 
+
     experiment = "/saved_models/"+exp
     folder = os.getcwd() + experiment 
     directory = os.fsencode(folder)
 
-
     max_it_sizes = 0
+    final_file = ""
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         
         # Find by chosen iteration amount
         if iterations:    
-            if filename.endswith("{}.tar".format(str(iterations))):
+            if filename.endswith("{}.csv".format(str(iterations))):
                 final_file = filename
                 break
         
         # Otherwise the biggest iteration amount
         else:
-            if filename.endswith(".tar"):
-                size = filename.split('_')[-1][:-4]
+            if filename.endswith(".csv"):
+                size = filename[6:-4]
                 if int(size) > max_it_sizes:
                     max_it_sizes = int(size)
 
-        if filename.endswith("{}.tar".format(str(max_it_sizes))):
+        if filename.endswith("{}.csv".format(str(max_it_sizes))):
             final_file = filename
 
-    print(final_file)
-
     
-    with open(fileName) as csvfile:
+    with open(folder+'/'+final_file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
-        properties = []
+        #properties = []
         for row in reader:
-            properties.append(row)
-    
-    exit()
+            #properties.append(row)
+            print(row)
 
 
 
