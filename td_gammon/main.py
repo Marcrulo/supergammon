@@ -48,6 +48,7 @@ if __name__ == '__main__':
     parser_gnubg.add_argument('--host', help='Host running gnubg', type=str, required=True)
     parser_gnubg.add_argument('--port', help='Port listening for gnubg commands', type=int, required=True)
     parser_gnubg.add_argument('--difficulty', help='Difficulty level', choices=['beginner', 'intermediate', 'advanced', 'world_class'], type=str, required=False, default='beginner')
+    parser_gnubg.add_argument('--iterations', help='Iterations', type=int, default=None)
 
     parser_gnubg.set_defaults(func=utils.args_gnubg)
     parser_evaluate.set_defaults(func=utils.args_evaluate)
@@ -65,7 +66,7 @@ if __name__ == '__main__':
 
 
 
-
+    '''
     parser_plot = subparsers.add_parser('plot', help='Plot the performance (wins)', formatter_class=lambda prog: formatter(prog))
     parser_plot.add_argument('--save_path', help='Directory where the model are saved', type=str, required=True)
     parser_plot.add_argument('--hidden_units', help='Hidden units of the model(s) loaded', type=int, default=40)
@@ -78,6 +79,16 @@ if __name__ == '__main__':
     parser_plot.add_argument('--type', help='Model type', choices=['cnn', 'nn'], type=str, default='nn')
 
     parser_plot.set_defaults(func=lambda args: utils.args_plot(args, parser))
+    '''
+    parser_stats = subparsers.add_parser('stats', help='Show stats', formatter_class=lambda prog: formatter(prog))
+    parser_stats.add_argument('--print', default=1) # Should data be printed in terminal?
+    parser_stats.add_argument('--plot', default=1)  # Should data be plottet?
+    parser_stats.add_argument('--exp', type=str, default=None)  # Experiment name 
+    parser_stats.add_argument('--iterations', type=int, default=None)
+    parser_stats.set_defaults(func=lambda args: utils.args_stats(args, parser))
+
+
+
 
 
 

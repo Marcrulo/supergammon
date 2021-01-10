@@ -8,3 +8,10 @@ Average game length: 106.0 plays | Total Duration: 0:00:00Average duration per g
 Average game length: 55.33 plays | Total Duration: 0:01:12Average duration per game: 0.438 seconds
 Average game length: 70.44 plays | Total Duration: 1:13:04
 >>>>>>> train_models_c
+Average duration per game: 1.251 seconds
+Average game length: 239.0 plays | Total Duration: 0:00:02Average duration per game: 1.196 seconds
+Average game length: 239.0 plays | Total Duration: 0:00:02Average duration per game: 1.231 seconds
+Average game length: 239.0 plays | Total Duration: 0:00:02Average duration per game: 1.182 seconds
+Average game length: 239.0 plays | Total Duration: 0:00:02Average duration per game: 114.945 seconds
+Average game length: 207.0 plays | Total Duration: 0:03:50Average duration per game: 0.343 seconds
+Average game length: 86.17 plays | Total Duration: 0:01:08

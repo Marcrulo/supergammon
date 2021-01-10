@@ -1,4 +1,3 @@
-import csv
 
 
 # Game: episode + 1
@@ -12,6 +11,7 @@ import csv
 # Black percentage of victory: (wins[BLACK] / tot) * 100
 # Duration: time.time() - t
 
+import csv
 
 def readData(fileName):
     with open(fileName) as csvfile:

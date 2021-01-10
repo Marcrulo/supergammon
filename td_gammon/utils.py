@@ -1,6 +1,7 @@
 import os
 import gym
 import sys
+import csv
 from agents import TDAgent, HumanAgent, TDAgentGNU, RandomAgent, evaluate_agents
 from gnubg.gnubg_backgammon import GnubgInterface, GnubgEnv, evaluate_vs_gnubg
 from gym_backgammon.envs.backgammon import WHITE, BLACK
@@ -68,9 +69,8 @@ def args_train(args):
         save_path = args.save_path
 
         write_file(
-            save_path, save_path=args.save_path, command_line_args=args, type=model_type, hidden_units=hidden_units, init_weights=init_weights, alpha=net.lr, lamda=net.lamda,
-            n_episodes=n_episodes, save_step=save_step, start_episode=net.start_episode, name_experiment=name, env=env.spec.id, restored_model=args.model, seed=seed,
-            eligibility=eligibility, optimizer=optimizer, modules=[module for module in net.modules()]
+            save_path, save_path=args.save_path, type=model_type, hidden_units=hidden_units, hidden_layers=hidden_layers, gamma=gamma, alpha=net.lr, lamda=net.lamda,
+            n_episodes=n_episodes, modules=[module for module in net.modules()]
         )
 
     net.train_agent(env=env, n_episodes=n_episodes, save_path=save_path, save_step=save_step, eligibility=eligibility, name_experiment=name)
@@ -104,6 +104,8 @@ def args_evaluate(args):
     hidden_units_agent1 = args.hidden_units_agent1
     n_episodes = args.episodes
 
+
+
     if path_exists(model_agent0) and path_exists(model_agent1):
         # assert os.path.exists(model_agent0), print("The path {} doesn't exists".format(model_agent0))
         # assert os.path.exists(model_agent1), print("The path {} doesn't exists".format(model_agent1))
@@ -134,19 +136,90 @@ def args_gnubg(args):
     host = args.host
     port = args.port
     difficulty = args.difficulty
+    iterations = args.iterations
 
-    if path_exists(model_agent0):
+    experiment = "/saved_models/"+model_agent0
+    folder = os.getcwd() + experiment 
+    directory = os.fsencode(folder)
+
+
+    max_it_sizes = 0
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        
+        # Find by chosen iteration amount
+        if iterations:    
+            if filename.endswith("{}.tar".format(str(iterations))):
+                final_file = filename
+                break
+        
+        # Otherwise the biggest iteration amount
+        else:
+            if filename.endswith(".tar"):
+                size = filename.split('_')[-1][:-4]
+                if int(size) > max_it_sizes:
+                    max_it_sizes = int(size)
+
+        if filename.endswith("{}.tar".format(str(max_it_sizes))):
+            final_file = filename
+
+    if path_exists(folder + '/' + final_file):
         # assert os.path.exists(model_agent0), print("The path {} doesn't exists".format(model_agent0))
         if model_type == 'nn':
             net0 = TDGammon(hidden_units=hidden_units_agent0, lr=0.1, lamda=None, init_weights=False)
         else:
             net0 = TDGammonCNN(lr=0.0001)
 
-        net0.load(checkpoint_path=model_agent0, optimizer=None, eligibility_traces=False)
+        # net0.load(checkpoint_path=folder + '/' + final_file, optimizer=None, eligibility_traces=False)
 
         gnubg_interface = GnubgInterface(host=host, port=port)
         gnubg_env = GnubgEnv(gnubg_interface, difficulty=difficulty, model_type=model_type)
         evaluate_vs_gnubg(agent=TDAgentGNU(WHITE, net=net0, gnubg_interface=gnubg_interface), env=gnubg_env, n_episodes=n_episodes)
+
+
+
+def args_stats(args, parser):
+    is_print = args.print
+    is_plot = args.plot
+    exp = args.exp
+    iterations = args.iterations
+
+    experiment = "/saved_models/"+exp
+    folder = os.getcwd() + experiment 
+    directory = os.fsencode(folder)
+
+
+    max_it_sizes = 0
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        
+        # Find by chosen iteration amount
+        if iterations:    
+            if filename.endswith("{}.tar".format(str(iterations))):
+                final_file = filename
+                break
+        
+        # Otherwise the biggest iteration amount
+        else:
+            if filename.endswith(".tar"):
+                size = filename.split('_')[-1][:-4]
+                if int(size) > max_it_sizes:
+                    max_it_sizes = int(size)
+
+        if filename.endswith("{}.tar".format(str(max_it_sizes))):
+            final_file = filename
+
+    print(final_file)
+
+    
+    with open(fileName) as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        properties = []
+        for row in reader:
+            properties.append(row)
+    
+    exit()
+
 
 
 # ===================================== PLOT PARAMETERS ======================================
