@@ -1,16 +1,16 @@
 import csv
 
 
-                    # Game: episode + 1
-                    # Winner: winner
-                    # Number of rounds: i
-                    # White agent: agents[WHITE].name
-                    # White number of victories: wins[WHITE]
-                    # White percentage of victory: (wins[WHITE] / tot) * 100
-                    # Black agent: agents[BLACK].name
-                    # Black number of victories: wins[BLACK]
-                    # Black percentage of victory: (wins[BLACK] / tot) * 100
-                    # Duration: time.time() - t
+# Game: episode + 1
+# Winner: winner
+# Number of rounds: i
+# White agent: agents[WHITE].name
+# White number of victories: wins[WHITE]
+# White percentage of victory: (wins[WHITE] / tot) * 100
+# Black agent: agents[BLACK].name
+# Black number of victories: wins[BLACK]
+# Black percentage of victory: (wins[BLACK] / tot) * 100
+# Duration: time.time() - t
 
 
 def readData(fileName):
