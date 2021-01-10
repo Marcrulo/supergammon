@@ -20,4 +20,5 @@ Average game length: 289.33 plays | Total Duration: 0:00:04Average duration per 
 Average game length: 289.33 plays | Total Duration: 0:00:04Average duration per game: 0.365 seconds
 Average game length: 86.17 plays | Total Duration: 0:01:13Average duration per game: 0.196 seconds
 Average game length: 55.38 plays | Total Duration: 0:03:19Average duration per game: 0.245 seconds
-Average game length: 69.65 plays | Total Duration: 0:40:11
+Average game length: 69.65 plays | Total Duration: 0:40:11Average duration per game: 77.824 seconds
+Average game length: 139.0 plays | Total Duration: 0:01:18

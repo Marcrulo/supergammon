@@ -1,24 +1,52 @@
 save_path=./saved_models/exp1
-type=nn
+type=cnn
 hidden_units=40
 hidden_layers=1
 gamma=1.0
 alpha=0.1
 lamda=0.7
-n_episodes=9000
-modules=[TDGammon(
+n_episodes=1
+modules=[TDGammonCNN(
+  (loss_fn): MSELoss()
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(8, 8), stride=(4, 4))
+    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+  )
   (hidden): Sequential(
-    (0): Linear(in_features=198, out_features=40, bias=True)
+    (0): Linear(in_features=4096, out_features=80, bias=True)
     (1): Sigmoid()
   )
   (output): Sequential(
-    (0): Linear(in_features=40, out_features=1, bias=True)
+    (0): Linear(in_features=80, out_features=1, bias=True)
     (1): Sigmoid()
   )
-), Sequential(
-  (0): Linear(in_features=198, out_features=40, bias=True)
+), MSELoss(), Sequential(
+  (0): Conv2d(1, 32, kernel_size=(8, 8), stride=(4, 4))
+  (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (2): ReLU()
+), Conv2d(1, 32, kernel_size=(8, 8), stride=(4, 4)), BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), ReLU(), Sequential(
+  (0): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2))
+  (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (2): ReLU()
+), Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2)), BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), ReLU(), Sequential(
+  (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+  (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (2): ReLU()
+), Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1)), BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), ReLU(), Sequential(
+  (0): Linear(in_features=4096, out_features=80, bias=True)
   (1): Sigmoid()
-), Linear(in_features=198, out_features=40, bias=True), Sigmoid(), Sequential(
-  (0): Linear(in_features=40, out_features=1, bias=True)
+), Linear(in_features=4096, out_features=80, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=80, out_features=1, bias=True)
   (1): Sigmoid()
-), Linear(in_features=40, out_features=1, bias=True), Sigmoid()]
+), Linear(in_features=80, out_features=1, bias=True), Sigmoid()]
