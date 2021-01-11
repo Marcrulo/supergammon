@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import csv
 from collections import namedtuple
 from itertools import count
 import requests
@@ -234,8 +235,10 @@ class GnubgEnv:
             return self.viewer.render(board=self.game.board, bar=self.game.bar, off=self.game.off, state_w=width, state_h=height)
 
 
-def evaluate_vs_gnubg(agent, env, n_episodes):
+def evaluate_vs_gnubg(agent, env, n_episodes, difficulty, model):
     wins = {WHITE: 0, BLACK: 0}
+
+    data = []
 
     for episode in range(n_episodes):
         observation, first_roll = env.reset()
@@ -262,8 +265,19 @@ def evaluate_vs_gnubg(agent, env, n_episodes):
 
                 print("EVAL => Game={:<6} {:>15} | Winner={} | after {:<4} plays || Wins: {}={:<6}({:<5.1f}%) | gnubg={:<6}({:<5.1f}%) | Duration={:<.3f} sec".format(
                     episode + 1, '('+env.difficulty+')', info, env.gnubg.n_moves, agent.name, wins[WHITE], (wins[WHITE] / tot) * 100, wins[BLACK], (wins[BLACK] / tot) * 100, time.time() - t))
+                data.append([episode + 1,(wins[WHITE] / tot) * 100])
                 break
             observation = observation_next
+
+    experiment = "/saved_models/"+model
+    folder = os.getcwd() + experiment 
+    #directory = os.fsencode(folder)
+
+    with open(folder+'/evaluation_{diff}_{final_win_rate}.csv'.format(diff=env.difficulty,final_win_rate=int(data[-1][-1])), 'w+') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(["Episode","Winrate"])
+        for episode in data:
+            writer.writerow(episode)
 
     env.gnubg_interface.send_command("new session")
     return wins

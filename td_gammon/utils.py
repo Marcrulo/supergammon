@@ -171,11 +171,11 @@ def args_gnubg(args):
         else:
             net0 = TDGammonCNN(lr=0.0001)
 
-        # net0.load(checkpoint_path=folder + '/' + final_file, optimizer=None, eligibility_traces=False)
+        net0.load(checkpoint_path=folder + '/' + final_file, optimizer=None, eligibility_traces=False)
 
         gnubg_interface = GnubgInterface(host=host, port=port)
         gnubg_env = GnubgEnv(gnubg_interface, difficulty=difficulty, model_type=model_type)
-        evaluate_vs_gnubg(agent=TDAgentGNU(WHITE, net=net0, gnubg_interface=gnubg_interface), env=gnubg_env, n_episodes=n_episodes)
+        evaluate_vs_gnubg(agent=TDAgentGNU(WHITE, net=net0, gnubg_interface=gnubg_interface), env=gnubg_env, n_episodes=n_episodes, difficulty=difficulty, model=model_agent0)
 
 
 
@@ -189,19 +189,31 @@ def args_stats(args, parser):
     directory = os.fsencode(folder)
 
     max_it_sizes = 0
+    evaluation_dict = {
+        "beginner"      :   -1,
+        "intermediate"  :   -1,
+        "advanced"      :   -1,
+        "world"   :   -1
+    }
     final_file = ""
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         
+        # Evaluation
+        if filename.startswith("evaluation"):
+            diff = filename.split('_')[1]
+            winrate = filename.split('_')[-1][:-4]
+            evaluation_dict[diff] = winrate 
+
         # Find by chosen iteration amount
         if iterations:    
-            if filename.endswith("{}.csv".format(str(iterations))):
+            if filename.endswith("{}.csv".format(str(iterations))) and filename.startswith("stats"):
                 final_file = filename
                 break
         
         # Otherwise the biggest iteration amount
         else:
-            if filename.endswith(".csv"):
+            if filename.endswith(".csv") and filename.startswith("stats"):
                 size = filename[6:-4]
                 if int(size) > max_it_sizes:
                     max_it_sizes = int(size)
@@ -218,6 +230,12 @@ def args_stats(args, parser):
             print(row)
             avg_td.append(float(row[10]))
             win_rates.append(float(row[5]))
+
+    print("\nWINRATES:")
+    print("Beginner:", evaluation_dict['beginner'])
+    print("Intermediate:", evaluation_dict['intermediate'])
+    print("Advanced:", evaluation_dict['advanced'])
+    print("World_class:", evaluation_dict['world'])
 
     f = plt.figure(figsize=(10,4))
     ax1 = f.add_subplot(121)
