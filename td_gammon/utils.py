@@ -180,8 +180,6 @@ def args_gnubg(args):
 
 
 def args_stats(args, parser):
-    is_print = args.print
-    is_plot = args.plot
     exp = args.exp
     iterations = args.iterations
 
@@ -217,12 +215,9 @@ def args_stats(args, parser):
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
 
-            if is_print:
-                print(row)
-
-            if is_plot:
-                avg_td.append(float(row[10]))
-                win_rates.append(float(row[5]))
+            print(row)
+            avg_td.append(float(row[10]))
+            win_rates.append(float(row[5]))
 
     f = plt.figure(figsize=(10,4))
     ax1 = f.add_subplot(121)

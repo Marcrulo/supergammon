@@ -81,8 +81,6 @@ if __name__ == '__main__':
     parser_plot.set_defaults(func=lambda args: utils.args_plot(args, parser))
     '''
     parser_stats = subparsers.add_parser('stats', help='Show stats', formatter_class=lambda prog: formatter(prog))
-    parser_stats.add_argument('--print', default=1) # Should data be printed in terminal?
-    parser_stats.add_argument('--plot', default=1)  # Should data be plottet?
     parser_stats.add_argument('--exp', type=str, default=None)  # Experiment name 
     parser_stats.add_argument('--iterations', type=int, default=None)
     parser_stats.set_defaults(func=lambda args: utils.args_stats(args, parser))
