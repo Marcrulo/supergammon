@@ -48,7 +48,7 @@ class BaseModel(nn.Module):
         checkpoint = torch.load(checkpoint_path)
         self.start_episode = checkpoint['step']
 
-        self.load_state_dict(checkpoint['model_state_dict'])
+        #self.load_state_dict(checkpoint['model_state_dict'])
 
         if eligibility_traces is not None:
             self.eligibility_traces = checkpoint['eligibility']
