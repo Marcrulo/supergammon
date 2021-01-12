@@ -193,7 +193,7 @@ def args_stats(args, parser):
         "beginner"      :   -1,
         "intermediate"  :   -1,
         "advanced"      :   -1,
-        "world"   :   -1
+        "world"         :   -1
     }
     final_file = ""
     for file in os.listdir(directory):
