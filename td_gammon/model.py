@@ -250,13 +250,67 @@ class TDGammon(BaseModel):
                     nn.Linear(hidden_units, hidden_units),
                     nn.Sigmoid()
                 )
-            
-            if self.hl == 3: 
+            if self.hl >= 3: 
                 self.hidden3 = nn.Sequential(
                     nn.Linear(hidden_units, hidden_units),
                     nn.Sigmoid()
                 )
-            if self.hl > 3:
+            if self.hl >= 4: 
+                self.hidden4 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 5: 
+                self.hidden5 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 6: 
+                self.hidden6 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 7: 
+                self.hidden7 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 8: 
+                self.hidden8 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 9: 
+                self.hidden9 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 10: 
+                self.hidden10 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 11: 
+                self.hidden11 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 12: 
+                self.hidden12 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl >= 13: 
+                self.hidden13 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl == 14: 
+                self.hidden14 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Sigmoid()
+                )
+            if self.hl > 14:
                 print("ERROR: Cannot apply more hidden layers than 3")
                 exit()
             
@@ -264,20 +318,24 @@ class TDGammon(BaseModel):
         elif self.activation == 2: 
             self.hidden = nn.Sequential(
                 nn.Linear(input_units, hidden_units),
-                nn.ReLU()
+                nn.Tanh()
             )
             if self.hl >= 2:
                 self.hidden2 = nn.Sequential(
                     nn.Linear(hidden_units, hidden_units),
-                    nn.ReLU()
+                    nn.Tanh()
                 )
-            
-            if self.hl == 3: 
+            if self.hl >= 3: 
                 self.hidden3 = nn.Sequential(
                     nn.Linear(hidden_units, hidden_units),
-                    nn.ReLU()
+                    nn.Tanh()
                 )
-            if self.hl > 3:
+            if self.hl == 4: 
+                self.hidden4 = nn.Sequential(
+                    nn.Linear(hidden_units, hidden_units),
+                    nn.Tanh()
+                )
+            if self.hl > 4:
                 print("ERROR: Cannot apply more hidden layers than 3")
                 exit()
 
@@ -304,8 +362,30 @@ class TDGammon(BaseModel):
         # NEW FEATURE
         if self.hl >= 2:
             x = self.hidden2(x)
-        if self.hl == 3:
+        if self.hl >= 3:
             x = self.hidden3(x)
+        if self.hl >= 4:
+            x = self.hidden4(x)
+        if self.hl >= 5:
+            x = self.hidden5(x)
+        if self.hl >= 6:
+            x = self.hidden6(x)
+        if self.hl >= 7:
+            x = self.hidden7(x)
+        if self.hl >= 8:
+            x = self.hidden8(x)
+        if self.hl >= 9:
+            x = self.hidden9(x)
+        if self.hl >= 10:
+            x = self.hidden10(x)
+        if self.hl >= 11:
+            x = self.hidden11(x)
+        if self.hl >= 12:
+            x = self.hidden12(x)
+        if self.hl >= 13:
+            x = self.hidden13(x)
+        if self.hl == 14:
+            x = self.hidden14(x)
 
         x = self.output(x)
 

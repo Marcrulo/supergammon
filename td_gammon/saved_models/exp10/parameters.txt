@@ -1,0 +1,115 @@
+save_path=./saved_models/exp4
+type=nn
+hidden_units=160
+hidden_layers=14
+gamma=1.0
+alpha=0.1
+lamda=0.7
+n_episodes=10000
+modules=[TDGammon(
+  (hidden): Sequential(
+    (0): Linear(in_features=198, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden2): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden3): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden4): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden5): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden6): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden7): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden8): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden9): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden10): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden11): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden12): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden13): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (hidden14): Sequential(
+    (0): Linear(in_features=160, out_features=160, bias=True)
+    (1): Sigmoid()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=160, out_features=1, bias=True)
+    (1): Sigmoid()
+  )
+), Sequential(
+  (0): Linear(in_features=198, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=198, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=160, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=160, bias=True), Sigmoid(), Sequential(
+  (0): Linear(in_features=160, out_features=1, bias=True)
+  (1): Sigmoid()
+), Linear(in_features=160, out_features=1, bias=True), Sigmoid()]
