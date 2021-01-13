@@ -7,7 +7,7 @@ from gnubg.gnubg_backgammon import GnubgInterface, GnubgEnv, evaluate_vs_gnubg
 from gym_backgammon.envs.backgammon import WHITE, BLACK
 from model import TDGammon, TDGammonCNN
 from web_gui.gui import GUI
-from torch.utils.tensorboard import SummaryWriter
+#from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
 
 #  tensorboard --logdir=runs/ --host localhost --port 8001
