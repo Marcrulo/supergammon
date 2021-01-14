@@ -7,7 +7,7 @@ from gnubg.gnubg_backgammon import GnubgInterface, GnubgEnv, evaluate_vs_gnubg
 from gym_backgammon.envs.backgammon import WHITE, BLACK
 from model import TDGammon, TDGammonCNN
 from web_gui.gui import GUI
-from torch.utils.tensorboard import SummaryWriter
+#from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
 
 #  tensorboard --logdir=runs/ --host localhost --port 8001
@@ -46,7 +46,7 @@ def args_train(args):
     gamma = args.gamma                  # NEW FEATURE
     hidden_layers = args.hidden_layers  # NEW FEATURE
     activation = args.activation        # NEW FEATURE
-    
+
 
     eligibility = False
     optimizer = None
@@ -226,10 +226,10 @@ def args_stats(args, parser):
     with open(folder+'/'+final_file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
-
-            print(row)
-            avg_td.append(float(row[10]))
-            win_rates.append(float(row[5]))
+            if row:
+                print(row)
+                avg_td.append(float(row[10]))
+                win_rates.append(float(row[5]))
 
     print("\nWINRATES:")
     print("Beginner:", evaluation_dict['beginner'])
