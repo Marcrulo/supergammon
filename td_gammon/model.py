@@ -233,7 +233,7 @@ class TDGammonCNN(BaseModel):
 
 class TDGammon(BaseModel):
 
-    def __init__(self, hidden_units, lr, init_weights, activation=1, lamda=0.7, gamma=0.5, hl=1, seed=123, input_units=198, output_units=1): # NEW FEATURE
+    def __init__(self, hidden_units, lr, init_weights, activation=1, lamda=0.7, gamma=0.6, hl=1, seed=123, input_units=198, output_units=1): # NEW FEATURE
         super(TDGammon, self).__init__(lr, lamda, seed=seed)
 
         self.gamma = gamma              # NEW FEATURE
