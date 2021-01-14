@@ -81,5 +81,5 @@ def run(host, server_class=HTTPServer, handler_class=Handler, port=8001):
 
 if __name__ == "__main__":
     HOST = 'localhost'  # <-- YOUR HOST HERE
-    PORT = 8003  # <-- YOUR PORT HERE
+    PORT = 8002  # <-- YOUR PORT HERE
     run(host=HOST, port=PORT)
