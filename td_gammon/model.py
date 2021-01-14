@@ -48,7 +48,7 @@ class BaseModel(nn.Module):
         checkpoint = torch.load(checkpoint_path)
         self.start_episode = checkpoint['step']
 
-        #self.load_state_dict(checkpoint['model_state_dict'])
+        self.load_state_dict(checkpoint['model_state_dict'])
 
         if eligibility_traces is not None:
             self.eligibility_traces = checkpoint['eligibility']
@@ -232,7 +232,7 @@ class TDGammonCNN(BaseModel):
 
 
 class TDGammon(BaseModel):
-    def __init__(self, hidden_units, lr, init_weights, activation=1, lamda=0.7, gamma=1, hl=1,seed=123, input_units=198, output_units=1): # NEW FEATURE
+    def __init__(self, hidden_units, lr, init_weights, activation=1, lamda=0.7, gamma=1, hl=1, seed=123, input_units=198, output_units=1): # NEW FEATURE
         super(TDGammon, self).__init__(lr, lamda, seed=seed)
 
         self.gamma = gamma              # NEW FEATURE
