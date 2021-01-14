@@ -1,11 +1,11 @@
 save_path=./saved_models/exp21
 type=nn
-hidden_units=40
-hidden_layers=1
+hidden_units=160
+hidden_layers=3
 gamma=1.0
 alpha=0.1
 lamda=0.7
-n_episodes=100000
+n_episodes=20000
 modules=[TDGammon(
   (hidden): Sequential(
     (0): Linear(in_features=198, out_features=40, bias=True)
